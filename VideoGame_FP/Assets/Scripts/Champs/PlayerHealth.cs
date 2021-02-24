@@ -8,6 +8,7 @@ public class PlayerHealth : MonoBehaviour
 	private SpriteRenderer _renderer;
 
 	// Variables relacionadas a la salud del player
+	public float baseHealthContainer;
 	public float baseHealth;
 	public float baseHealthCopy;
 	public float healthIncrease;
@@ -63,12 +64,24 @@ public class PlayerHealth : MonoBehaviour
 		this.xp = this.xp - this.xpNeeded;
 		this.xpNeeded = this.xpNeeded * 1.5f;
 		updateHealth();
-
-		
 	}
 
 	private void updateHealth()
     {
-		this.baseHealth = this.baseHealthCopy + healthIncrease * (level - 1);
+		float increase = healthIncrease * (level - 1);
+		this.baseHealthContainer = this.baseHealthCopy + increase;
+		this.baseHealth += increase;
+	}
+
+	public void regenHealth(float percentage)
+    {
+		if (this.baseHealth < this.baseHealthContainer)
+        {
+			this.baseHealth += this.baseHealthContainer * percentage;
+			if (this.baseHealth > this.baseHealthContainer)
+            {
+				this.baseHealth = this.baseHealthContainer;
+            }
+		}
 	}
 }

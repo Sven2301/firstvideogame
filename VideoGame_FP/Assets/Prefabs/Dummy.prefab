@@ -179,7 +179,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 438d80f561ee919458d1a21800bb4b16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseHealth: 535
+  baseHealthContainer: 1000
+  baseHealth: 100
+  baseHealthCopy: 100
+  healthIncrease: 0
+  armor: 0
+  magicResist: 0
+  xp: 0
+  xpNeeded: 1000
+  coins: 0
+  level: 0
 --- !u!114 &5529590870430845266
 MonoBehaviour:
   m_ObjectHideFlags: 0

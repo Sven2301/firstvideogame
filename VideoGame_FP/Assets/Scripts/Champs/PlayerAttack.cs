@@ -14,7 +14,6 @@ public class PlayerAttack : MonoBehaviour
 	public float magicPenetration;
 	public bool useMagic;
 
-
 	private void Awake()
 	{
 		_animator = GetComponent<Animator>();

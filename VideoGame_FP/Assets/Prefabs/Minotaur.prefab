@@ -165,6 +165,12 @@ MonoBehaviour:
   healthIncrease: 29
   armor: 0
   magicResist: 0
+  xpGiven: 74
+  xpGivenCopy: 74
+  xpIncrease: 0
+  coinGiven: 0
+  coinGivenCopy: 0
+  coinIncrease: 0
 --- !u!114 &3953821561835929272
 MonoBehaviour:
   m_ObjectHideFlags: 0
