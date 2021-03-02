@@ -37,6 +37,7 @@ Transform:
   - {fileID: 5529590870795861348}
   - {fileID: 5529590871266604191}
   - {fileID: 5529590872548049175}
+  - {fileID: 6091226463828793676}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -147,10 +148,15 @@ MonoBehaviour:
   speed: 2
   jumpForce: 3.3
   groundCheck: {fileID: 5529590870795861348}
+  upCheck: {fileID: 6091226463828793676}
   groundLayer:
     serializedVersion: 2
     m_Bits: 256
   groundCheckRadius: 0.1
+  isSpellUpReady: 1
+  isSpellDownReady: 1
+  spellUpCalled: 0
+  spellDownCalled: 0
 --- !u!70 &5529590870430845356
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -341,3 +347,33 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.20879358, y: 0.17663404}
   m_EdgeRadius: 0
+--- !u!1 &6436557940398825312
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6091226463828793676}
+  m_Layer: 0
+  m_Name: RoofPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6091226463828793676
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6436557940398825312}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.0095, y: 0.102, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5529590870430845353}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

@@ -44,7 +44,7 @@ public class BaseHealthRegen : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            Debug.Log("plaer puot");
+            
             playersInBase.Remove(collision.transform.gameObject);
         }
     }

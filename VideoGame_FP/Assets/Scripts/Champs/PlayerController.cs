@@ -9,22 +9,30 @@ public class PlayerController : MonoBehaviour
 	public float jumpForce = 2.5f;
 
 	public Transform groundCheck;
+	public Transform upCheck;
 	public LayerMask groundLayer;
 	public float groundCheckRadius;
 
 	// References
 	private Rigidbody2D _rigidbody;
 	private Animator _animator;
+	private Transform _transform;
 
-	// Long Idle
+	// Timer
 	private float _longIdleTimer;
+	private float spellUpTimer;
+	private float spellDownTimer;
 
 	// Movement
 	private Vector2 _movement;
 	private bool _facingRight = true;
 	private bool _isGrounded;
 
-	// Attack
+	// Bool
+	public bool isSpellUpReady = true;
+	public bool isSpellDownReady = true;
+	public bool spellUpCalled;
+	public bool spellDownCalled;
 	private bool _isAttacking;
 
 
@@ -32,6 +40,7 @@ public class PlayerController : MonoBehaviour
 	{
 		_rigidbody = GetComponent<Rigidbody2D>();
 		_animator = GetComponent<Animator>();
+		_transform = GetComponent<Transform>();
 	}
 
 	void Start()
@@ -68,6 +77,16 @@ public class PlayerController : MonoBehaviour
 			_rigidbody.velocity = Vector2.zero;
 			_animator.SetTrigger("Attack");
 		}
+
+		if (Input.GetKeyDown("x"))
+		{
+			spellUpCalled = true;
+		}
+
+		if (Input.GetKeyDown("c"))
+		{
+			spellDownCalled = true;
+		}
 	}
 
 	void FixedUpdate()
@@ -76,6 +95,18 @@ public class PlayerController : MonoBehaviour
 			float horizontalVelocity = _movement.normalized.x * speed;
 			_rigidbody.velocity = new Vector2(horizontalVelocity, _rigidbody.velocity.y);
 		}
+
+		if (spellUpCalled)
+        {
+			spellUpCalled = false;
+			spellUp();
+        }
+
+		if (spellDownCalled)
+        {
+			spellDownCalled = false;
+			//spellDown
+        }
 	}
 
 	void LateUpdate()
@@ -110,4 +141,23 @@ public class PlayerController : MonoBehaviour
 		localScaleX = localScaleX * -1f;
 		transform.localScale = new Vector3(localScaleX, transform.localScale.y, transform.localScale.z);
 	}
+
+	private void spellUp()
+    {
+		if (isSpellUpReady)
+        {
+			//isSpellUpReady = false;
+
+			RaycastHit2D hit = Physics2D.Raycast(upCheck.position, Vector2.up, groundLayer);
+			Collider2D ground = hit.collider;
+			
+			if (hit.collider != null)
+            {
+				RaycastHit2D hit2 = Physics2D.Raycast(hit.point, Vector2.up, groundLayer);
+				_transform.position = new Vector3(hit2.point.x, hit2.point.y + 0.5f, _transform.position.z);
+				
+			}
+
+        }
+    }
 }
