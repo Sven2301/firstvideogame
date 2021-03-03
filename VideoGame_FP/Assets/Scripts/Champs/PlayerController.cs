@@ -20,8 +20,8 @@ public class PlayerController : MonoBehaviour
 
 	// Timer
 	private float _longIdleTimer;
-	private float spellUpTimer;
-	private float spellDownTimer;
+	public float spellUpTimer = 0;
+	private float spellDownTimer = 0;
 
 	// Movement
 	private Vector2 _movement;
@@ -87,6 +87,30 @@ public class PlayerController : MonoBehaviour
 		{
 			spellDownCalled = true;
 		}
+
+		// Spell timers
+		if (!isSpellUpReady)
+        {
+			spellUpTimer += Time.deltaTime;
+
+			if (spellUpTimer >= 10)
+            {
+				isSpellUpReady = true;
+				spellUpTimer = 0;
+
+			}
+        }
+
+		if (!isSpellDownReady)
+		{
+			spellDownTimer += Time.deltaTime;
+
+			if (spellDownTimer >= 10)
+			{
+				isSpellDownReady = true;
+				spellDownTimer = 0;
+			}
+		}
 	}
 
 	void FixedUpdate()
@@ -105,7 +129,7 @@ public class PlayerController : MonoBehaviour
 		if (spellDownCalled)
         {
 			spellDownCalled = false;
-			//spellDown
+			spellDown();
         }
 	}
 
@@ -146,18 +170,58 @@ public class PlayerController : MonoBehaviour
     {
 		if (isSpellUpReady)
         {
-			//isSpellUpReady = false;
-
-			RaycastHit2D hit = Physics2D.Raycast(upCheck.position, Vector2.up, groundLayer);
-			Collider2D ground = hit.collider;
-			
+			RaycastHit2D hit = Physics2D.Raycast(upCheck.position, Vector2.up, Mathf.Infinity, groundLayer);
 			if (hit.collider != null)
             {
-				RaycastHit2D hit2 = Physics2D.Raycast(hit.point, Vector2.up, groundLayer);
-				_transform.position = new Vector3(hit2.point.x, hit2.point.y + 0.5f, _transform.position.z);
-				
+				RaycastHit2D hit2 = Physics2D.Raycast(new Vector2(hit.point.x, hit.point.y+0.2f), Vector2.up, Mathf.Infinity, groundLayer);
+
+				if (hit2.collider != null && hit2.point != hit.point)
+                {
+					_transform.position = new Vector3(hit2.point.x, hit2.point.y + 0.5f, _transform.position.z);
+					//isSpellUpReady = false;
+				}
 			}
+
+            else
+            {
+				Debug.Log("No se ejecuta");
+            }
 
         }
     }
+
+	private void spellDown()
+	{
+		if (isSpellDownReady)
+		{
+			RaycastHit2D hit = Physics2D.Raycast(groundCheck.position, Vector2.down, Mathf.Infinity, groundLayer);
+			Debug.Log("New cast");
+			if (hit.collider != null)
+			{
+
+				Debug.Log(hit.point);
+				RaycastHit2D hit2 = Physics2D.Raycast(new Vector2(hit.point.x, hit.point.y - 0.2f), Vector2.down, Mathf.Infinity, groundLayer);
+
+				if (hit2.collider != null)
+				{
+					Debug.Log(hit2.point);
+					RaycastHit2D hit3 = Physics2D.Raycast(new Vector2(hit2.point.x, hit2.point.y - 0.2f), Vector2.down, Mathf.Infinity, groundLayer);
+
+					if (hit3.collider != null)
+                    {
+						Debug.Log(hit3.point);
+						_transform.position = new Vector3(hit3.point.x, hit3.point.y + 0.5f, _transform.position.z);
+						//isSpellDownReady = false;
+					}
+					
+				}
+			}
+
+			else
+			{
+				Debug.Log("No se ejecuta");
+			}
+
+		}
+	}
 }
