@@ -170,23 +170,23 @@ public class PlayerController : MonoBehaviour
     {
 		if (isSpellUpReady)
         {
+
 			RaycastHit2D hit = Physics2D.Raycast(upCheck.position, Vector2.up, Mathf.Infinity, groundLayer);
 			if (hit.collider != null)
-            {
-				RaycastHit2D hit2 = Physics2D.Raycast(new Vector2(hit.point.x, hit.point.y+0.2f), Vector2.up, Mathf.Infinity, groundLayer);
+			{ 
 
+				RaycastHit2D hit2 = Physics2D.Raycast(new Vector2(hit.point.x, hit.point.y+0.2f), Vector2.up, Mathf.Infinity, groundLayer);
 				if (hit2.collider != null && hit2.point != hit.point)
                 {
 					_transform.position = new Vector3(hit2.point.x, hit2.point.y + 0.5f, _transform.position.z);
-					//isSpellUpReady = false;
+					isSpellUpReady = false;
 				}
 			}
 
             else
             {
-				Debug.Log("No se ejecuta");
+				Debug.Log("No castea spell");
             }
-
         }
     }
 
@@ -195,31 +195,25 @@ public class PlayerController : MonoBehaviour
 		if (isSpellDownReady)
 		{
 			RaycastHit2D hit = Physics2D.Raycast(groundCheck.position, Vector2.down, Mathf.Infinity, groundLayer);
-			Debug.Log("New cast");
 			if (hit.collider != null)
 			{
 
-				Debug.Log(hit.point);
 				RaycastHit2D hit2 = Physics2D.Raycast(new Vector2(hit.point.x, hit.point.y - 0.2f), Vector2.down, Mathf.Infinity, groundLayer);
-
 				if (hit2.collider != null)
 				{
-					Debug.Log(hit2.point);
-					RaycastHit2D hit3 = Physics2D.Raycast(new Vector2(hit2.point.x, hit2.point.y - 0.2f), Vector2.down, Mathf.Infinity, groundLayer);
 
+					RaycastHit2D hit3 = Physics2D.Raycast(new Vector2(hit2.point.x, hit2.point.y - 0.2f), Vector2.down, Mathf.Infinity, groundLayer);
 					if (hit3.collider != null)
                     {
-						Debug.Log(hit3.point);
 						_transform.position = new Vector3(hit3.point.x, hit3.point.y + 0.5f, _transform.position.z);
-						//isSpellDownReady = false;
+						isSpellDownReady = false;
 					}
-					
 				}
 			}
 
 			else
 			{
-				Debug.Log("No se ejecuta");
+				Debug.Log("No castea spell");
 			}
 
 		}

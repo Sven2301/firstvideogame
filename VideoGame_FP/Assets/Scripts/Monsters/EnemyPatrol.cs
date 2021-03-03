@@ -14,7 +14,9 @@ public class EnemyPatrol : MonoBehaviour
 	private int amountOfPlayers;
 	private EnemyHealth _healthScript;
 	private float _deadTimer = 0f;
+	private int _seq;
 
+	public int seq;
 	public GameObject spawn;
 	public bool isOnRange;
 	public float range;
@@ -29,6 +31,7 @@ public class EnemyPatrol : MonoBehaviour
 		_rigidBody = this.GetComponent<Rigidbody2D>();
 		_animator = this.GetComponent<Animator>();
 		_healthScript = this.GetComponent<EnemyHealth>();
+		_seq = seq;
 
 	}
 
@@ -105,6 +108,14 @@ public class EnemyPatrol : MonoBehaviour
 				_movement = Vector2.zero;
 				_rigidBody.velocity = _movement;
 				_animator.SetTrigger("Attack");
+
+				_seq -= 1;
+				if(_seq < 0)
+                {
+					_seq = seq;
+                }
+
+				_animator.SetInteger("Seq", _seq);
 				isOnRange = false;
 			}
 		}

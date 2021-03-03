@@ -141,6 +141,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
+  seq: 2
   spawn: {fileID: 0}
   isOnRange: 0
   range: 0.6
